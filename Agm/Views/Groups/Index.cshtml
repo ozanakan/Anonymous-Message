@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_UserIndex.cshtml";
+}
+
+@Html.Raw(TempData["msg"])
+<script src="~/scripts/WordToSpeak.js"></script>
+<script>
+    $(document).ready(function () {
+        wordtospeak('Grup kurmak için 1 e grubunuza mesaj atmak için 2 ye gruba katılmak için 3 e grubu düzenlemek için 4 e üye eklemek için 5 e ve grup bilgileri için 6 yı tuşlayınız', true);
+
+        $('body').keyup(function (e) {
+            var key = e.which;
+
+            if (key == 97 ) {
+                window.location.href = '@Url.Action("Create", "Groups")';
+            }
+            if (key == 98 ) {
+                window.location.href = '@Url.Action("Index", "Home")';
+            }
+            if (key == 99) {
+                window.location.href = '@Url.Action("Join", "Groups")';
+            }
+            if (key == 100 ) {
+                window.location.href = '@Url.Action("EditIndex", "Groups")';
+            }
+            if (key == 101 ) {
+                window.location.href = '@Url.Action("AddUserToGroup", "Groups")';
+            }
+            if (key == 102) {
+                window.location.href = '@Url.Action("InfoIndex", "Groups")';
+            }
+           
+        });
+    });
+
+</script>
+
+
+
+<br />
+    <div class="container" >
+        <div class="row mbr-justify-content-center">
+                <div class="col-lg-6 mbr-col-md-10">
+                    <div class="wrap">
+                        <div class="ico-wrap">
+                            <span class="mbr-iconfont fa fa-comments-o"></span>
+                        </div>
+                        <div class="text-wrap vcenter">
+                            <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Grup Kur</span></h2>
+                            <p class="mbr-fonts-style text1 mbr-text display-6">Kendi grubunuzu kurup üyelerinizle hemen mesaj paylaşımına başlayın.</p>
+                        </div>
+                        <a href="@Url.Action("Create","Groups")" class="coverLink"></a>
+
+                    </div>
+        </div>
+                
+        <div class="col-lg-6 mbr-col-md-10">
+            <div class="wrap">
+                <div class="ico-wrap">
+                    <span class="mbr-iconfont fa fa-envelope-o"></span>
+                </div>
+                <div class="text-wrap vcenter">
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Gruba Mesaj At</h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Grubunuzla mesaj paylaşarak üyelerinizle iletişime geçebilirsiniz.<br /></p>
+                </div>
+                <a href="@Url.Action("Index", "Home")"  class="coverLink"></a>
+            </div>
+        </div>
+       
+       <div class="col-lg-6 mbr-col-md-10">
+                <div class="wrap">
+                    <div class="ico-wrap">
+                        <span class="mbr-iconfont far fa-comment-dots"></span>
+                    </div>
+                    <div class="text-wrap vcenter">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Gruba Katıl</h2>
+                        <p class="mbr-fonts-style text1 mbr-text display-6">Herhangi bir gruba katılıp mesajları takip edebilirsiniz.<br /><br /></p>
+                    </div>
+                    <a href="@Url.Action("Join","Groups")" class="coverLink"></a>
+                </div>
+       </div>
+            <div class="col-lg-6 mbr-col-md-10">
+                <div class="wrap">
+                    <div class="ico-wrap">
+                        <span class="mbr-iconfont fa fa-pencil-square-o"></span>
+                    </div>
+                    <div class="text-wrap vcenter">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">
+                            Grubu Düzenle
+                        </h2>
+                        <p class="mbr-fonts-style text1 mbr-text display-6">Grubunuzun bilgilerini kolaylıkla buradan değiştirebilirsiniz.</p>
+                    </div>
+                    <a href="@Url.Action("EditIndex","Groups")" class="coverLink"></a>
+                </div>
+            </div>
+
+        <div class="col-lg-6 mbr-col-md-10">
+            <div class="wrap">
+                <div class="ico-wrap">
+                    <span class="mbr-iconfont fas fa-user-plus"></span>
+                </div>
+                <div class="text-wrap vcenter">
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">
+                        Üye ekle
+                    </h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Grubunuza üye ekleyerek mesajlarınızı onlarla paylaşabilirsiniz.</p>
+                </div>
+                <a href="@Url.Action("AddUserToGroup","Groups")" class="coverLink"></a>
+            </div>
+        </div>
+            <div class="col-lg-6 mbr-col-md-10">
+                <div class="wrap">
+                    <div class="ico-wrap">
+                        <span class="mbr-iconfont fas fa-info-circle"></span>
+                    </div>
+                    <div class="text-wrap vcenter">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Grup Bilgileri</h2>
+                        <p class="mbr-fonts-style text1 mbr-text display-6">Yöneticisi olduğunuz grupların bilgilerine buradan erişebilirsiniz.<br /></p>
+                    </div>
+                    <a href="@Url.Action("InfoIndex","Groups")" class="coverLink"></a>
+                </div>
+            </div>
+
+        </div>
+    </div>

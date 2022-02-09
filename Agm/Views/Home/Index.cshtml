@@ -1,0 +1,118 @@
+﻿@model IEnumerable<Agm.Models.Class.groupsModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_UserIndex.cshtml";
+}
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+<script src="~/scripts/WordToSpeak.js"></script>
+
+<div class="container">
+    <div class="search-table">
+        <div class="search-box capsule" style="background:none !important;">
+            <div class="row">
+                <div class="input-group md-form form-sm form-2 pl-0">
+                    <input class="form-control my-0 py-1 amber-border" type="text" id="myInput" onkeyup="myFunction()" placeholder="Grup Ara" aria-label="Search">
+                    <div class="input-group-append">
+                        <span class="input-group-text amber lighten-3" id="basic-text1">
+                            <i class="fas fa-search text-grey"
+                               aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $("#myInput").on("keyup", function () {
+                                var value = $(this).val().toLowerCase();
+                                $("#myTable tr").filter(function () {
+                                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                });
+                            });
+                            var a = $('#myTable').find('.groupName');
+                            var tmpr = 'Gruplara girmek için grup no ya  Ana menüye gitmek için m ye basınız';
+
+                            for (var i = 0; i < a.length ; i++) {
+
+                                tmpr = (tmpr + ((i + 1) + ($(a[i]).text())));
+                            }
+                            wordtospeak(tmpr);
+                        });
+
+
+                        $('body').keyup(function (e) {
+                            var key = e.which;
+
+                            if (key == 77) {
+                                window.location.href = '@Url.Action("Index", "Groups")';
+                            }
+
+                            var dt = $('[speaklink=""]');
+
+                            if (key == 97) {
+                                window.location.href = $(dt[0]).attr('href');
+                            }
+                            if (key == 98) {
+                                window.location.href = $(dt[1]).attr('href');
+                            }
+                            if (key == 99) {
+                                window.location.href = $(dt[2]).attr('href');
+                            }
+                            if (key == 100) {
+                                window.location.href = $(dt[3]).attr('href');
+                            }
+                            if (key == 101) {
+                                window.location.href = $(dt[4]).attr('href');
+                            }
+                            if (key == 102) {
+                                window.location.href = $(dt[5]).attr('href');
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="search-list ">
+            <table class="table table-responsive-sm" id="myTable" style="">
+                <tbody>
+                    @if (Model != null)
+                    { 
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="groupImgTd">
+                                    <img alt="asd" src="@item.groupImageUrl" class="imgGroup" />
+                                </td>
+                                <td>
+                                    <a class="groupLink" speaklink="" href="@Url.Action("Index","TextMessage", new {id=item.groupId})">
+                                        <h6 class="h6 groupName">@item.groupName</h6>
+                                    </a>
+                                </td>
+                                <td class="trashIconTd">
+                                    <a class="leaveGroup" data-id=@item.groupId>
+                                        <center><i class="trash fas fa-trash-alt" style=""></i></center>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                <center>@ViewBag.NoResult</center>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+

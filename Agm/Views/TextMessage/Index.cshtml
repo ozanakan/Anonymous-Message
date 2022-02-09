@@ -1,0 +1,124 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_UserIndex.cshtml";
+
+}
+@Html.Hidden("Get", Url.Action("Get", "TextMessage"))
+@Html.Raw(TempData["msg"])
+
+
+@*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>*@
+
+<script src="~/scripts/WordToSpeak.js"></script>
+<script >
+        $(function () {
+            var msg = $.connection.msgHub;
+            msg.client.displayTextMessage = function () {
+                getData();
+            };
+            $.connection.hub.start();
+            getData();
+
+            $("#btn_kaydet").click(function () {
+                CreateMesage();
+            });
+
+            //click olayı yazılacak
+
+            wordtospeak('Mesaj yazmak için bire son mesajı okumak için 2 ye  son mesajdan önceki mesajlar için b ye basınız',false);
+
+
+            $('body').keyup(function (e) {
+                var key = e.which;
+
+                var focusmesaj = $('#txt_msg').is(':focus');
+
+                if (key == 77) {
+                    window.location.href = '@Url.Action("Index", "Groups")';
+                }
+
+                if (key == 97 && focusmesaj==false)  // the enter key code
+                {
+                    $('#txt_msg').focus();
+                    $('#txt_msg').val('');
+
+                    wordtospeak('Mesajınızı giriniz ve entera basınız', false);
+                }
+                else if (key == 13) {
+                    $("#btn_kaydet").trigger("click");
+                    wordtospeak('Mesajınız Yollandı', false);
+                }
+
+                else if (key == 98) {
+                    //ilk sıradakini oku (2)
+                    var okunansayisi = $('[sonokunanmesaj]').attr('sonokunanmesaj');
+
+                    var okunacakolan = 'read' + okunansayisi;
+                    var text = $('[' + okunacakolan + ']').attr(okunacakolan);
+
+                    wordtospeak(text);
+                }
+                else if (key == 78) {
+                    //bir sonrasını okur (n)
+                    var okunansayisi = parseInt($('[sonokunanmesaj]').attr('sonokunanmesaj')) + 2;
+                    $('[sonokunanmesaj]').attr('sonokunanmesaj', (parseInt(okunansayisi)));
+
+                    var okunacakolan = 'read' + okunansayisi;
+                    var text = $('[' + okunacakolan + ']').attr(okunacakolan);
+
+                    wordtospeak(text);
+                }
+                else if (key == 66) {
+                    //bir öncekini okur (b)
+                    var okunansayisi = parseInt($('[sonokunanmesaj]').attr('sonokunanmesaj')) - 2;
+                    if (okunansayisi < 0)
+                        okunansayisi = 0;
+                    $('[sonokunanmesaj]').attr('sonokunanmesaj', (parseInt(okunansayisi)));
+
+                    var okunacakolan = 'read' + okunansayisi;
+                    var text = $('[' + okunacakolan + ']').attr(okunacakolan);
+
+                    wordtospeak(text);
+                }
+            });
+        });
+
+    </script>
+
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" }) 
+        <div class="form-group container mt-5">
+            <h4 class="headerAdd" style="">Lütfen üyelerinizle paylaşmak istediğiniz mesajı giriniz.</h4>
+
+
+            <div class="col-md-10 inputAddUser">
+                <input type="text" id="txt_msg" name="name" value="" style="width: 900px;height: 40px;">
+            </div>
+        </div>
+
+        <div class="form-group container">
+            <div class="col-md-offset-2 col-md-10" style="margin:auto;"> 
+                <input id="btn_kaydet" style="width:100%;" value="Paylaş" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+    <div class="header" style="">
+
+        <center>Bu gruba ait mesajlar &nbsp;<i class="far fa-comment-dots"></i></center>
+    </div>
+    <div id="msgInfo" class="flexboxCapsule" sonokunanmesaj="0">
+
+    </div>
+
+
+

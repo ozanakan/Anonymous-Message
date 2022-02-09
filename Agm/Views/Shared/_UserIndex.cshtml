@@ -1,0 +1,108 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+    <title>Anonim Grup Mesaj</title>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--Css made by me-->
+    <link href="~/Content/navbarIndex.css" rel="stylesheet" />
+    <link href="~/Content/groupIndex.css" rel="stylesheet" />
+    <link href="~/Content/groupCreate.css" rel="stylesheet" />
+    <link href="~/Content/homeIndex.css" rel="stylesheet" />
+    <link href="~/Content/textMessageIndex.css" rel="stylesheet" />
+    <link href="~/Content/addUserToGroup.css" rel="stylesheet" />
+    <link href="~/Content/groupInfo.css" rel="stylesheet" />
+    <link href="~/Content/userIndex.css" rel="stylesheet" />
+    <link href="~/Content/userProfile.css" rel="stylesheet" />
+    <!--Script made by me-->
+    <script src="~/scripts/homeIndexScript.js"></script>
+    <script src="~/scripts/RemoveUserScript.js"></script>
+    <script src="~/scripts/userEdit.js"></script>
+
+
+
+</head>
+<body>
+
+    @Html.Partial("_Navbar")
+    @RenderBody()
+    <script src="~/scripts/site.js"></script>
+    <script src="~/scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
+    <script src="~/scripts/bootbox.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+    <script type="text/javascript">
+      
+        function getData() {
+            var $tbl = $('#msgInfo').empty();
+            $.ajax({
+                url: $('#Get').val(),
+                type: 'GET',
+                data: { id: location.href.split('/').pop() },
+                datatype: 'json',
+                success: function (data) {
+                    $tbl.empty();
+                    $.each(data.listMsg, function (i, model) {
+                        var $mod = i % 2;
+                        if ($mod == 0) {
+                            $tbl.append(
+
+                             '<div class="rcorners " read' + i + '="' + model.textContent + '"  >' + model.textContent + '<br>' +
+                             '<p style="color:black; text-align:right;">' + model.textOwner + ' | ' + model.textDate +
+                             ' | ' + '<a href="../Remove/' + model.textId + '">' + '<i style="color:white;" class="fas fa-trash-alt fa-1x">' + '</i></a>' +
+                             '</p>' +
+
+                             '</div>'
+
+                           );
+                        }
+                        else if ($mod == 1) {
+                            $tbl.append(
+
+                             '<div class="lcorners ">' + model.textContent + '<br>' +
+                             '<p style="color:black; text-align:right;">' + model.textOwner + ' | ' + model.textDate +
+                             ' | ' + '<a href="../Remove/' + model.textId + '">' + '<i style="color:white;" class="fas fa-trash-alt fa-1x">' + '</i></a>' +
+                             '</p>' +
+                             '</div>'
+                             );
+                        }
+                        else if (model == null) {
+                            $tbl.append(
+                              '<div class="lcorners ">' + 'boş mesaj yok' + '</div>'
+                               );
+                        }
+                    });
+                }
+            });
+        }
+
+        function CreateMesage() {
+            var $text = $('#txt_msg').val();
+            $.ajax({
+                url: '/TextMessage/createmsg',
+                type: 'GET',
+                data: { id: location.href.split('/').pop(), tModel: $text },
+                datatype: 'json',
+                success: function (data) {
+                    getData();
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

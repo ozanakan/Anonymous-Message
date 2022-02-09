@@ -1,0 +1,40 @@
+﻿
+.imgGroup{
+    width:75px;height:75px;border:0px solid black;border-radius:50%;
+}
+
+.groupLink{
+   display:block;
+    text-decoration:none !important;
+    margin:auto;
+}
+.trash{
+    color:red;cursor:pointer; margin-top:30px;
+}
+.sendIcon{
+    color:darkorange;cursor:pointer; margin-top:19px; margin-right:10px;
+}
+.editIcon{
+    color:dodgerblue;cursor:pointer; margin-top:30px; margin-right:10px;
+}
+.userAddIcon{
+    color:dodgerblue;cursor:pointer; margin-top:30px; margin-right:10px;
+}
+.infoIcon{
+    color:dodgerblue;cursor:pointer; margin-top:30px; margin-right:10px;
+}
+.groupImgTd{
+    width:10% !important;
+    
+}
+.groupName{
+    margin-top:25px;
+    font-size:20px;
+    text-align:left;
+    margin-left:10%;
+
+   
+}
+.IconTd{
+    width:5%;
+}

@@ -1,0 +1,38 @@
+﻿@model Agm.Models.Class.textMessageModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_UserIndex.cshtml";
+}
+ 
+
+
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+      
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       
+
+        <div class="form-group container mt-5">
+            <h4 class="headerAdd" style="">Lütfen üyelerinizle paylaşmak istediğiniz mesajı giriniz.</h4>
+           
+            <div class="col-md-10 inputAddUser">
+                @Html.EditorFor(model => model.textContent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.textContent, "", new { @class = "text-danger" })
+            </div>
+        </div>
+         
+        <div class="form-group container">
+            <div class="col-md-offset-2 col-md-10" style="margin:auto;">
+                <center><input type="submit" style="width:50%;" value="Paylaş" class="btn btn-primary" /></center>
+            </div>
+        </div>
+    </div>
+}
+
+

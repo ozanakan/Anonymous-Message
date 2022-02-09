@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AgmModelStoreContainer" CdmEntityContainer="AgmEntities">
+    <EntitySetMapping Name="Asistance">
+      <EntityTypeMapping TypeName="AgmModel.Asistance">
+        <MappingFragment StoreEntitySet="Asistance">
+          <ScalarProperty Name="asistanceId" ColumnName="asistanceId" />
+          <ScalarProperty Name="asistanceNameSurname" ColumnName="asistanceNameSurname" />
+          <ScalarProperty Name="managerFk" ColumnName="managerFk" />
+          <ScalarProperty Name="userFk" ColumnName="userFk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="AgmModel.Groups">
+        <MappingFragment StoreEntitySet="Groups">
+          <ScalarProperty Name="groupId" ColumnName="groupId" />
+          <ScalarProperty Name="groupName" ColumnName="groupName" />
+          <ScalarProperty Name="groupImageUrl" ColumnName="groupImageUrl" />
+          <ScalarProperty Name="managerFk" ColumnName="managerFk" />
+          <ScalarProperty Name="groupCode" ColumnName="groupCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Manager">
+      <EntityTypeMapping TypeName="AgmModel.Manager">
+        <MappingFragment StoreEntitySet="Manager">
+          <ScalarProperty Name="managerId" ColumnName="managerId" />
+          <ScalarProperty Name="managerNameSurname" ColumnName="managerNameSurname" />
+          <ScalarProperty Name="userFk" ColumnName="userFk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TextMessage">
+      <EntityTypeMapping TypeName="AgmModel.TextMessage">
+        <MappingFragment StoreEntitySet="TextMessage">
+          <ScalarProperty Name="textId" ColumnName="textId" />
+          <ScalarProperty Name="textOwner" ColumnName="textOwner" />
+          <ScalarProperty Name="textContent" ColumnName="textContent" />
+          <ScalarProperty Name="groupFk" ColumnName="groupFk" />
+          <ScalarProperty Name="textDate" ColumnName="textDate" />
+          <ScalarProperty Name="userFk" ColumnName="userFk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="AgmModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="userPhoneNumber" ColumnName="userPhoneNumber" />
+          <ScalarProperty Name="userNameSurname" ColumnName="userNameSurname" />
+          <ScalarProperty Name="userLoginName" ColumnName="userLoginName" />
+          <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+          <ScalarProperty Name="userImageUrl" ColumnName="userImageUrl" />
+          <ScalarProperty Name="userEmail" ColumnName="userEmail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="GroupAsistance" TypeName="AgmModel.GroupAsistance" StoreEntitySet="GroupAsistance">
+      <EndProperty Name="Asistance">
+        <ScalarProperty Name="asistanceId" ColumnName="asistanceFk" />
+      </EndProperty>
+      <EndProperty Name="Groups">
+        <ScalarProperty Name="groupId" ColumnName="groupFk" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UsersGroup" TypeName="AgmModel.UsersGroup" StoreEntitySet="UsersGroup">
+      <EndProperty Name="Groups">
+        <ScalarProperty Name="groupId" ColumnName="groupFk" />
+      </EndProperty>
+      <EndProperty Name="Users">
+        <ScalarProperty Name="userId" ColumnName="usersFk" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="spAddUserGroups" FunctionName="AgmModel.Store.spAddUserGroups" />
+    <FunctionImportMapping FunctionImportName="spCheckGrupAsistance" FunctionName="AgmModel.Store.spCheckGrupAsistance">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgmModel.spCheckGrupAsistance_Result">
+          <ScalarProperty Name="groupFk" ColumnName="groupFk" />
+          <ScalarProperty Name="asistanceFk" ColumnName="asistanceFk" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGroupJoin" FunctionName="AgmModel.Store.spGroupJoin" />
+    <FunctionImportMapping FunctionImportName="spGroupsManager" FunctionName="AgmModel.Store.spGroupsManager">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgmModel.spGroupsManager_Result">
+          <ScalarProperty Name="groupId" ColumnName="groupId" />
+          <ScalarProperty Name="groupName" ColumnName="groupName" />
+          <ScalarProperty Name="groupImageUrl" ColumnName="groupImageUrl" />
+          <ScalarProperty Name="groupCode" ColumnName="groupCode" />
+          <ScalarProperty Name="managerNameSurname" ColumnName="managerNameSurname" />
+          <ScalarProperty Name="managerId" ColumnName="managerId" />
+          <ScalarProperty Name="userFk" ColumnName="userFk" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spLeaveGroup" FunctionName="AgmModel.Store.spLeaveGroup" />
+    <FunctionImportMapping FunctionImportName="spMemberofGroup" FunctionName="AgmModel.Store.spMemberofGroup">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgmModel.spMemberofGroup_Result">
+          <ScalarProperty Name="userImageUrl" ColumnName="userImageUrl" />
+          <ScalarProperty Name="userLoginName" ColumnName="userLoginName" />
+          <ScalarProperty Name="groupFk" ColumnName="groupFk" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spUserGroup" FunctionName="AgmModel.Store.spUserGroup">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgmModel.spUserGroup_Result">
+          <ScalarProperty Name="groupId" ColumnName="groupId" />
+          <ScalarProperty Name="groupName" ColumnName="groupName" />
+          <ScalarProperty Name="groupImageUrl" ColumnName="groupImageUrl" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="userGroupsUsidGrpid" FunctionName="AgmModel.Store.userGroupsUsidGrpid">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgmModel.userGroupsUsidGrpid_Result">
+          <ScalarProperty Name="groupId" ColumnName="groupId" />
+          <ScalarProperty Name="groupName" ColumnName="groupName" />
+          <ScalarProperty Name="groupImageUrl" ColumnName="groupImageUrl" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spAddUserGroupsWithLogName" FunctionName="AgmModel.Store.spAddUserGroupsWithLogName" />
+  </EntityContainerMapping>
+</Mapping>

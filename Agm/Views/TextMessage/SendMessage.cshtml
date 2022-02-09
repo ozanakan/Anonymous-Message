@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Agm.Models.Class.groupsModel>
+
+@{
+    ViewBag.Title = "SendMessage";
+    Layout = "~/Views/Shared/_UserIndex.cshtml";
+}
+<div class="container">
+    <div class="search-table">
+        <div class="search-box capsule" style="background:none !important;">
+            <div class="row">
+                <div class="input-group md-form form-sm form-2 pl-0">
+                    <input class="form-control my-0 py-1 amber-border" type="text" id="myInput" onkeyup="myFunction()" placeholder="Grup Ara" aria-label="Search">
+                    <div class="input-group-append">
+                        <span class="input-group-text amber lighten-3" id="basic-text1">
+                            <i class="fas fa-search text-grey"
+                               aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $("#myInput").on("keyup", function () {
+                                var value = $(this).val().toLowerCase();
+                                $("#myTable tr").filter(function () {
+                                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                });
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-list">
+            <table class="table" id="myTable">
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td class="groupImgTd">
+                                    <img alt="asd" class="imgGroup" src="@item.groupImageUrl" style="" />
+                                </td>
+                                <td>
+                                    <a class="groupLink" href="@Url.Action("Index","TextMessage", new {id=item.groupId})">
+                                        <h6 class="h6 groupName">@item.groupName</h6>
+                                    </a>
+                                </td>
+                                <td class="IconTd">
+                                    <a href="@Url.Action("Create","TextMessage", new {id=item.groupId})">
+                                        <center>  <i class="sendIcon fas fa-envelope fa-2x"></i></center>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                <center>@ViewBag.NoResult</center>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
